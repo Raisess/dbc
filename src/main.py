@@ -3,27 +3,33 @@
 import os
 import sys
 
-from database_container.database_container_factory import DatabaseContainerFactory
+from commands.connect_database_container_command import ConnectDatabaseContainerCommand
+from commands.create_database_container_command import CreateDatabaseContainerCommand
+from commands.help_command import HelpCommand
+
+class InvalidCommandException(Exception):
+  def __init__(self):
+    super().__init__("Invalid command, try `dbc help`")
+
+
+command_handlers = [
+  HelpCommand(),
+  CreateDatabaseContainerCommand(),
+  ConnectDatabaseContainerCommand(),
+]
 
 if __name__ == "__main__":
   if len(sys.argv) < 2:
-    raise Exception("Invalid command, try `dbc help`")
+    raise InvalidCommandException()
 
+  command_handlers[0].attach_commands(command_handlers)
+
+  executed = False
   command = sys.argv[1]
-  if command == "create":
-    container_name = sys.argv[3]
-    database_type = sys.argv[2]
-    container = DatabaseContainerFactory.Init(container_name, database_type, None)
-    container.create()
-  elif command == "connect":
-    container_name = sys.argv[3]
-    database_type = sys.argv[2]
-    container = DatabaseContainerFactory.Init(container_name, database_type, None)
-    container.connect()
-  elif command == "help":
-    print("DBC CLI")
-    print("\t create: create's a new database container. E.g.: dbc create mysql container-name")
-    print("\t connect: connect's into a database container. E.g.: dbc connect mysql container-name")
-    print("Thanks for using @ Raisess")
-  else:
-    raise Exception("Invalid command")
+  for command_handler in command_handlers:
+    if command_handler.get_command() == command:
+      executed = True
+      command_handler.handle(sys.argv[2:])
+
+  if not executed:
+    raise InvalidCommandException()
