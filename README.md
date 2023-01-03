@@ -2,18 +2,18 @@
 
 Setup development database enviroments with a easy to use database container management tool.
 
-### Support
+## Supported databases
 
 - [x] MySQL
 - [ ] PostgreSQL
 - [ ] MongoDB
 
-### Dependencies
+## Dependencies
 
 - [Python 3.10.x >=](https://www.python.org/)
 - [Docker](https://www.docker.com/)
 
-### Setup
+## Setup
 
 How to download and install:
 
