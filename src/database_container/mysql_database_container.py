@@ -13,8 +13,8 @@ class MySqlServerContainer(AbstractDatabaseServerContainer):
       connection_opts or DefaultMySqlConnectionOpts(name)
     )
 
-  def _connect_command(self, _: DatabaseConnectionOpts) -> str:
-    return "mysql -p"
+  def _connect_command(self, connection_opts: DatabaseConnectionOpts) -> str:
+    return f"mysql -u {connection_opts.user} -p {connection_opts.database} --password={connection_opts.password}"
 
   def _enviroment(self, connection_opts: DatabaseConnectionOpts) -> list[str]:
     return [
