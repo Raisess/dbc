@@ -29,8 +29,8 @@ class AbstractDatabaseServerContainer:
   def connect(self) -> None:
     self.__container.execute(self._connect_command(self.__connection_opts))
 
-  def _connect_command() -> str:
+  def _connect_command(self, _: DatabaseConnectionOpts) -> str:
     raise NotImplemented()
 
-  def _enviroment(self, connection_opts: DatabaseConnectionOpts) -> list[str]:
+  def _enviroment(self, _: DatabaseConnectionOpts) -> list[str]:
     raise NotImplemented()
