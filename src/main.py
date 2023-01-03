@@ -3,7 +3,7 @@
 import os
 import sys
 
-from database_container_factory import DatabaseContainerFactory
+from database_container.database_container_factory import DatabaseContainerFactory
 
 if __name__ == "__main__":
   if len(sys.argv) < 2:
