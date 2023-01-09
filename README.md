@@ -12,6 +12,7 @@ Setup development database enviroments with a easy to use database container man
 
 - [Python 3.10.x >=](https://www.python.org/)
 - [Docker](https://www.docker.com/)
+- [yacli](https://github.com/Raisess/yacli)
 
 ## Setup
 
