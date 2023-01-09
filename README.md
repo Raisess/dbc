@@ -24,3 +24,28 @@ $ cd dbc
 $ ./install.sh
 $ dbc help
 ```
+
+## How to use?
+
+#### `create`:
+
+```shell
+$ dbc create `database-type` `container-name`
+```
+
+#### `connect`:
+
+```shell
+$ dbc connect `database-type` `container-name`
+```
+
+- NOTE: connect command, enter a database conntainer using a client software, e.g.: `psql`.
+
+#### Example:
+
+- MySQL database container:
+
+```shell
+$ dbc create mysql mysql-container-name
+$ dbc connect mysql mysql-container-name
+```
