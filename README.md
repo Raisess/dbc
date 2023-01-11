@@ -21,7 +21,7 @@ How to download and install:
 ```shell
 $ git clone https://github.com/Raisess/dbc
 $ cd dbc
-$ ./install.sh
+$ sudo ./install.py
 $ dbc help
 ```
 
