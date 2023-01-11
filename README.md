@@ -46,6 +46,6 @@ $ dbc connect `database-type` `container-name`
 - MySQL database container:
 
 ```shell
-$ dbc create mysql mysql-container-name
-$ dbc connect mysql mysql-container-name
+$ DB_NAME=database DB_HOST=localhost DB_PORT=3306 DB_USER=root DB_PASS=root dbc create mysql mysql-container-name
+$ DB_NAME=database DB_HOST=localhost DB_PORT=3306 DB_USER=root DB_PASS=root dbc connect mysql mysql-container-name
 ```

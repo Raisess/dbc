@@ -2,20 +2,36 @@ import os
 
 from container.abs_container import AbstractContainer
 
+class VarNotProvidedException(Exception):
+  def __init__(self, var_name: str):
+    super().__init__(f"{var_name} not provided")
+
+
 class DatabaseConnectionOpts:
   def __init__(
     self,
-    database: str,
-    host: str | None,
-    user: str | None,
-    password: str | None,
-    port: int | None
+    database: str = os.getenv("DB_NAME"),
+    host: str = os.getenv("DB_NAME"),
+    user: str = os.getenv("DB_NAME"),
+    password: str = os.getenv("DB_NAME"),
+    port: str | int = os.getenv("DB_PORT")
   ):
+    if not database:
+      raise VarNotProvidedException("DB_NAME")
+    if not host:
+      raise VarNotProvidedException("DB_HOST")
+    if not port:
+      raise VarNotProvidedException("DB_PORT")
+    if not user:
+      raise VarNotProvidedException("DB_USER")
+    if not password:
+      raise VarNotProvidedException("DB_PASS")
+
     self.database = database
-    self.host = os.getenv("DB_HOST") or host
-    self.user = os.getenv("DB_USER") or user
-    self.password = os.getenv("DB_PASS") or password
-    self.port = os.getenv("DB_PORT") or port
+    self.host = host
+    self.user = user
+    self.password = password
+    self.port = int(port)
 
 
 class AbstractDatabaseContainer:

@@ -12,7 +12,7 @@ class DatabaseContainerFactory:
   def Init(
     container_name: str,
     database_type: DatabaseContinerType,
-    database_connection_opts: DatabaseConnectionOpts | None
+    database_connection_opts: DatabaseConnectionOpts
   ) -> AbstractDatabaseContainer:
     if database_type == DatabaseContinerType.MySql:
       return MySqlDatabaseContainer(container_name, database_connection_opts)

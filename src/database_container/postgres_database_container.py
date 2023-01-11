@@ -1,16 +1,11 @@
 from container.docker_container import DockerContainer
 from database_container.abs_database_container import AbstractDatabaseContainer, DatabaseConnectionOpts
 
-class DefaultPostgresDatabaseConnectionOpts(DatabaseConnectionOpts):
-  def __init__(self, database: str):
-    super().__init__(database, "localhost", "postgres", "postgres", 5432)
-
-
 class PostgresDatabaseContainer(AbstractDatabaseContainer):
-  def __init__(self, name: str, connection_opts: DatabaseConnectionOpts | None):
+  def __init__(self, name: str, connection_opts: DatabaseConnectionOpts):
     super().__init__(
       DockerContainer(name, "postgres"),
-      connection_opts or DefaultPostgresDatabaseConnectionOpts(name)
+      connection_opts
     )
 
   def _connect_command(self, connection_opts: DatabaseConnectionOpts) -> str:
