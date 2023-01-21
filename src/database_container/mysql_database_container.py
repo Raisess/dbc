@@ -3,10 +3,7 @@ from database_container.abs_database_container import AbstractDatabaseContainer,
 
 class MySqlDatabaseContainer(AbstractDatabaseContainer):
   def __init__(self, name: str, connection_opts: DatabaseConnectionOpts):
-    super().__init__(
-      DockerContainer(name, "mysql"),
-      connection_opts
-    )
+    super().__init__(DockerContainer(name, connection_opts.port, "mysql"), connection_opts)
 
   def _connect_command(self, connection_opts: DatabaseConnectionOpts) -> str:
     return f"mysql --user={connection_opts.user} --database={connection_opts.database} --password={connection_opts.password}"
