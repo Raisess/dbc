@@ -11,9 +11,9 @@ class DatabaseConnectionOpts:
   def __init__(
     self,
     database: str = os.getenv("DB_NAME"),
-    host: str = os.getenv("DB_NAME"),
-    user: str = os.getenv("DB_NAME"),
-    password: str = os.getenv("DB_NAME"),
+    host: str = os.getenv("DB_HOST"),
+    user: str = os.getenv("DB_USER"),
+    password: str = os.getenv("DB_PASS"),
     port: str | int = os.getenv("DB_PORT")
   ):
     if not database:
