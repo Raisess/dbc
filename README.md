@@ -4,9 +4,9 @@ Setup development database enviroments with a easy to use database container man
 
 ## Supported databases
 
-- [x] MySQL
-- [x] PostgreSQL
-- [ ] MongoDB
+- [x] MySQL: `mysql`
+- [x] PostgreSQL: `postgres`
+- [x] MongoDB: `mongo`
 
 ## Dependencies
 
