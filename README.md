@@ -7,6 +7,7 @@ Setup development database enviroments with a easy to use database container man
 - [x] MySQL: `mysql`
 - [x] PostgreSQL: `postgres`
 - [x] MongoDB: `mongo`
+- [x] Microsoft SQLServer: `mssql`
 
 ## Dependencies
 
