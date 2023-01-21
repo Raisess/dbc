@@ -20,7 +20,7 @@ if __name__ == "__main__":
       cd yacli
       ./install.sh
     """)
-    os.rmdir("yacli")
+    shutil.rmtree("yacli")
 
   if os.path.isdir(BIN_PATH):
     os.remove(BIN_PATH)
