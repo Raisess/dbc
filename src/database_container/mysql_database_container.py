@@ -9,7 +9,7 @@ class MySqlDatabaseContainer(AbstractDatabaseContainer):
     )
 
   def _connect_command(self, connection_opts: DatabaseConnectionOpts) -> str:
-    return f"mysql -u {connection_opts.user} -p {connection_opts.database} --password={connection_opts.password}"
+    return f"mysql --user={connection_opts.user} --database={connection_opts.database} --password={connection_opts.password}"
 
   def _enviroment(self, connection_opts: DatabaseConnectionOpts) -> list[str]:
     return [
