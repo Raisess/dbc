@@ -1,6 +1,6 @@
 import os
 
-from container.abs_container import AbstractContainer
+from containers.abs_container import AbstractContainer
 
 class VarNotProvidedException(Exception):
   def __init__(self, var_name: str):

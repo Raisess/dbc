@@ -1,5 +1,5 @@
-from container.docker_container import DockerContainer
-from database_container.abs_database_container import AbstractDatabaseContainer, DatabaseConnectionOpts
+from containers.docker_container import DockerContainer
+from database_containers.abs_database_container import AbstractDatabaseContainer, DatabaseConnectionOpts
 
 MONGO_CONTAINER_INSTANCE = "mongo"
 MONGO_CONTAINER_PORT = 27017

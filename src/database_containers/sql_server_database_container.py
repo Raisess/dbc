@@ -1,5 +1,5 @@
-from container.docker_container import DockerContainer
-from database_container.abs_database_container import AbstractDatabaseContainer, DatabaseConnectionOpts
+from containers.docker_container import DockerContainer
+from database_containers.abs_database_container import AbstractDatabaseContainer, DatabaseConnectionOpts
 
 SQL_SERVER_CONTAINER_INSTANCE = "mcr.microsoft.com/mssql/server"
 SQL_SERVER_CONTAINER_PORT = 1433
