@@ -1,9 +1,13 @@
 from container.docker_container import DockerContainer
 from database_container.abs_database_container import AbstractDatabaseContainer, DatabaseConnectionOpts
 
+SQL_SERVER_CONTAINER_INSTANCE = "mcr.microsoft.com/mssql/server"
+SQL_SERVER_CONTAINER_PORT = 1433
+
 class SqlServerDatabaseContainer(AbstractDatabaseContainer):
   def __init__(self, name: str, connection_opts: DatabaseConnectionOpts):
-    super().__init__(DockerContainer(name, connection_opts.port, "mcr.microsoft.com/mssql/server"), connection_opts)
+    container = DockerContainer(name, connection_opts.port, SQL_SERVER_CONTAINER_INSTANCE, SQL_SERVER_CONTAINER_PORT)
+    super().__init__(container, connection_opts)
 
   def _connect_command(self, connection_opts: DatabaseConnectionOpts) -> str:
     return f"/opt/mssql-tools/bin/sqlcmd -S {connection_opts.host} -U {connection_opts.user} -P {connection_opts.password}"
