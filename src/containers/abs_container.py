@@ -1,11 +1,13 @@
+from common.exceptions import ContainerParamNotProvidedException
+
 class AbstractContainer:
   def __init__(self, name: str, instance: str, instance_port: int):
     if not name:
-      raise Exception("Container name not provided")
+      raise ContainerParamNotProvidedException("name")
     if not instance:
-      raise Exception("Container instance not provided")
+      raise ContainerParamNotProvidedException("instance")
     if not instance_port:
-      raise Exception("Container instance port not provided")
+      raise ContainerParamNotProvidedException("instance_port")
 
     self.__name = name
     self.__port = instance_port

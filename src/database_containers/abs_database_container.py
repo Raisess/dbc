@@ -1,11 +1,7 @@
 import os
 
+from common.exceptions import DatabaseConnectionParamNotProvidedException
 from containers.abs_container import AbstractContainer
-
-class VarNotProvidedException(Exception):
-  def __init__(self, var_name: str):
-    super().__init__(f"{var_name} not provided")
-
 
 class DatabaseConnectionOpts:
   def __init__(
@@ -17,15 +13,15 @@ class DatabaseConnectionOpts:
     port: str | int = os.getenv("DB_PORT")
   ):
     if not database:
-      raise VarNotProvidedException("DB_NAME")
+      raise DatabaseConnectionParamNotProvidedException("DB_NAME")
     if not host:
-      raise VarNotProvidedException("DB_HOST")
+      raise DatabaseConnectionParamNotProvidedException("DB_HOST")
     if not port:
-      raise VarNotProvidedException("DB_PORT")
+      raise DatabaseConnectionParamNotProvidedException("DB_PORT")
     if not user:
-      raise VarNotProvidedException("DB_USER")
+      raise DatabaseConnectionParamNotProvidedException("DB_USER")
     if not password:
-      raise VarNotProvidedException("DB_PASS")
+      raise DatabaseConnectionParamNotProvidedException("DB_PASS")
 
     self.database = database
     self.host = host
