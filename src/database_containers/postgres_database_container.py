@@ -6,7 +6,8 @@ POSTGRES_CONTAINER_PORT = 5432
 
 class PostgresDatabaseContainer(AbstractDatabaseContainer):
   def __init__(self, name: str, connection_opts: DatabaseConnectionOpts):
-    container = DockerContainer(name, connection_opts.port, POSTGRES_CONTAINER_INSTANCE, POSTGRES_CONTAINER_PORT)
+    container = DockerContainer(name, POSTGRES_CONTAINER_INSTANCE, POSTGRES_CONTAINER_PORT)
+    container.bind(connection_opts.port)
     super().__init__(container, connection_opts)
 
   def _connect_command(self, connection_opts: DatabaseConnectionOpts) -> str:

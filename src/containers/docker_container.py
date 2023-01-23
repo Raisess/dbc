@@ -3,8 +3,8 @@ import os
 from containers.abs_container import AbstractContainer
 
 class DockerContainer(AbstractContainer):
-  def __init__(self, name: str, port: int, instance: str, instace_port: int):
-    super().__init__(name, port, instance, instace_port)
+  def __init__(self, name: str, instance: str, instace_port: int):
+    super().__init__(name, instance, instace_port)
 
   def create(self, env: list[str]) -> None:
     credentials = " ".join(["-e " + credential.strip() for credential in env])
