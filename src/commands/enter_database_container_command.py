@@ -14,5 +14,5 @@ class EnterDatabaseContainerCommand(Command):
   def handle(self, args: list[str]) -> None:
     database_type = args[0]
     container_name = args[1]
-    container = DatabaseContainerFactory.Init(container_name, database_type, DatabaseConnectionOpts())
-    container.enter()
+    database_container = DatabaseContainerFactory.Init(container_name, database_type, DatabaseConnectionOpts())
+    database_container.enter()
