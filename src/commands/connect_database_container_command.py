@@ -15,4 +15,4 @@ class ConnectDatabaseContainerCommand(Command):
     database_type = args[0]
     container_name = args[1]
     database_container = DatabaseContainerFactory.Init(container_name, database_type, DatabaseConnectionOpts())
-    databse_container.connect()
+    database_container.connect()
