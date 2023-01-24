@@ -1,6 +1,6 @@
 import os
 
-from containers.abs_container import AbstractContainer
+from core.containers.abs_container import AbstractContainer
 
 class DockerContainer(AbstractContainer):
   def __init__(self, name: str, instance: str, instace_port: int):

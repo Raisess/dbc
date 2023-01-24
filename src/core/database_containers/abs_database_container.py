@@ -1,7 +1,7 @@
 import os
 
 from common.exceptions import DatabaseConnectionParamNotProvidedException
-from containers.abs_container import AbstractContainer
+from core.containers.abs_container import AbstractContainer
 
 class DatabaseConnectionOpts:
   def __init__(

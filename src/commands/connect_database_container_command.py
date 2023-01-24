@@ -1,6 +1,6 @@
 from yacli import Command
 
-from database_containers.abs_database_container import DatabaseConnectionOpts
+from core.database_containers.abs_database_container import DatabaseConnectionOpts
 from factories.database_container_factory import DatabaseContainerFactory
 
 class ConnectDatabaseContainerCommand(Command):

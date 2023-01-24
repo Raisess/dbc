@@ -1,5 +1,5 @@
-from containers.docker_container import DockerContainer
-from database_containers.abs_database_container import AbstractDatabaseContainer, DatabaseConnectionOpts
+from core.containers.docker_container import DockerContainer
+from core.database_containers.abs_database_container import AbstractDatabaseContainer, DatabaseConnectionOpts
 
 POSTGRES_CONTAINER_INSTANCE = "postgres"
 POSTGRES_CONTAINER_PORT = 5432
