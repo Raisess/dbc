@@ -36,4 +36,7 @@ class AbstractContainer:
     raise NotImplemented()
 
   def bash(self) -> None:
-    self.execute("bash")
+    raise NotImplemented()
+
+  def destroy(self) -> None:
+    raise NotImplemented()

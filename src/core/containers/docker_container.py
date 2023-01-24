@@ -13,3 +13,10 @@ class DockerContainer(AbstractContainer):
 
   def execute(self, command: str) -> None:
     os.system(f"docker exec -it {self.get_name()} {command}")
+
+  def bash(self) -> None:
+    self.execute("bash")
+
+  def destroy(self) -> None:
+    os.system(f"docker stop {self.get_name()}")
+    os.system(f"docker rm {self.get_name()}")
