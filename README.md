@@ -31,22 +31,30 @@ $ dbc help
 #### `create`:
 
 ```shell
-$ dbc create `database-type` `container-name`
+$ DB_NAME=database DB_HOST=localhost DB_PORT=3306 DB_USER=root DB_PASS=root dbc create `database-type` `container-name`
 ```
+
+- @NOTE: needs database env vars.
 
 #### `connect`:
 
 ```shell
-$ dbc connect `database-type` `container-name`
+$ DB_NAME=database DB_HOST=localhost DB_PORT=3306 DB_USER=root DB_PASS=root dbc connect `database-type` `container-name`
 ```
 
-- NOTE: connect command, enter a database conntainer using a client software, e.g.: `psql`.
+- @NOTE: needs database env vars.
+- @NOTE: connect command, enter a database conntainer using a client software, e.g.: `psql`.
 
-#### Example:
-
-- MySQL database container:
+#### `enter`:
 
 ```shell
-$ DB_NAME=database DB_HOST=localhost DB_PORT=3306 DB_USER=root DB_PASS=root dbc create mysql mysql-container-name
-$ DB_NAME=database DB_HOST=localhost DB_PORT=3306 DB_USER=root DB_PASS=root dbc connect mysql mysql-container-name
+$ dbc enter `container-name`
+```
+
+- @NOTE: enter into the container using `bash`.
+
+#### `destroy`:
+
+```shell
+$ dbc destroy `container-name`
 ```
