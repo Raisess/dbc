@@ -41,9 +41,6 @@ class AbstractDatabaseContainer:
   def connect(self) -> None:
     self.__container.execute(self._connect_command(self.__connection_opts))
 
-  def enter(self) -> None:
-    self.__container.bash()
-
   def _connect_command(self, _: DatabaseConnectionOpts) -> str:
     raise NotImplemented()
 
