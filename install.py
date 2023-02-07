@@ -1,9 +1,7 @@
 #! /usr/bin/env python3
 
 import os
-import shutil
 import site
-import sys
 
 CLI_NAME = "dbc"
 
@@ -19,20 +17,24 @@ if __name__ == "__main__":
       git clone https://github.com/Raisess/yacli
       cd yacli
       ./install.sh
+      cd ..
+      rm -rf yacli
     """)
-    shutil.rmtree("yacli")
+
+  if os.path.isfile("./requirements.txt"):
+    os.system("python3 -m pip install -r ./requirements.txt")
 
   if os.path.isdir(BIN_PATH):
-    os.remove(BIN_PATH)
-  shutil.copy(f"./bin/{CLI_NAME}", BIN_PATH)
+    os.system(f"sudo rm -rf {BIN_PATH}")
+  os.system(f"sudo cp ./bin/{CLI_NAME} {BIN_PATH}")
 
   if os.path.isdir(LIB_PATH):
-    shutil.rmtree(LIB_PATH)
-  shutil.copytree("./src", LIB_PATH)
+    os.system(f"sudo rm -rf {LIB_PATH}")
+  os.system(f"sudo cp -r ./src {LIB_PATH}")
 
   if os.path.isdir("./etc"):
     if os.path.isdir(ETC_PATH):
-      shutil.rmtree(ETC_PATH)
-    shutil.copytree("./etc", ETC_PATH)
+      os.system(f"sudo rm -rf {ETC_PATH}")
+    os.system(f"sudo cp -r ./etc {ETC_PATH}")
 
   print("Installed successfully!")
