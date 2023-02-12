@@ -1,12 +1,12 @@
 from core.containers.docker_container import DockerContainer
 from core.database_containers.abs_database_container import AbstractDatabaseContainer, DatabaseConnectionOpts
 
-MYSQL_CONTAINER_INSTANCE = "mysql"
+MYSQL_CONTAINER_IMAGE = "mysql"
 MYSQL_CONTAINER_PORT = 3306
 
 class MySqlDatabaseContainer(AbstractDatabaseContainer):
   def __init__(self, name: str, connection_opts: DatabaseConnectionOpts):
-    container = DockerContainer(name, MYSQL_CONTAINER_INSTANCE, MYSQL_CONTAINER_PORT)
+    container = DockerContainer(name, MYSQL_CONTAINER_IMAGE, MYSQL_CONTAINER_PORT)
     container.bind(connection_opts.port)
     super().__init__(container, connection_opts)
 

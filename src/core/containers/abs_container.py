@@ -1,18 +1,18 @@
 from common.exceptions import ContainerParamNotProvidedException
 
 class AbstractContainer:
-  def __init__(self, name: str, instance: str, instance_port: int):
+  def __init__(self, name: str, image: str, image_port: int):
     if not name:
       raise ContainerParamNotProvidedException("name")
-    if not instance:
-      raise ContainerParamNotProvidedException("instance")
-    if not instance_port:
-      raise ContainerParamNotProvidedException("instance_port")
+    if not image:
+      raise ContainerParamNotProvidedException("image")
+    if not image_port:
+      raise ContainerParamNotProvidedException("image_port")
 
     self.__name = name
-    self.__port = instance_port
-    self.__instance = instance
-    self.__instance_port = instance_port
+    self.__port = image_port
+    self.__image = image
+    self.__image_port = image_port
 
   def bind(self, port: int) -> None:
     self.__port = port
@@ -23,11 +23,11 @@ class AbstractContainer:
   def get_port(self) -> int:
     return self.__port
 
-  def get_instance(self) -> str:
-    return self.__instance
+  def get_image(self) -> str:
+    return self.__image
 
-  def get_instance_port(self) -> int:
-    return self.__instance_port
+  def get_image_port(self) -> int:
+    return self.__image_port
 
   def create(self, env: list[str]) -> None:
     raise NotImplemented()

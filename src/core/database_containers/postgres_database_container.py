@@ -1,12 +1,12 @@
 from core.containers.docker_container import DockerContainer
 from core.database_containers.abs_database_container import AbstractDatabaseContainer, DatabaseConnectionOpts
 
-POSTGRES_CONTAINER_INSTANCE = "postgres"
+POSTGRES_CONTAINER_IMAGE = "postgres"
 POSTGRES_CONTAINER_PORT = 5432
 
 class PostgresDatabaseContainer(AbstractDatabaseContainer):
   def __init__(self, name: str, connection_opts: DatabaseConnectionOpts):
-    container = DockerContainer(name, POSTGRES_CONTAINER_INSTANCE, POSTGRES_CONTAINER_PORT)
+    container = DockerContainer(name, POSTGRES_CONTAINER_IMAGE, POSTGRES_CONTAINER_PORT)
     container.bind(connection_opts.port)
     super().__init__(container, connection_opts)
 
