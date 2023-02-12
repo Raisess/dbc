@@ -1,12 +1,12 @@
-from core.containers.docker_container import DockerContainer
+from core.containers.docker_container import DockerContainer, Image
 from core.database_containers.abs_database_container import AbstractDatabaseContainer, DatabaseConnectionOpts
 
-SQL_SERVER_CONTAINER_IMAGE = "mcr.microsoft.com/mssql/server"
-SQL_SERVER_CONTAINER_PORT = 1433
+SQL_SERVER_IMAGE_NAME = "mcr.microsoft.com/mssql/server"
+SQL_SERVER_IMAGE_PORT = 1433
 
 class SqlServerDatabaseContainer(AbstractDatabaseContainer):
   def __init__(self, name: str, connection_opts: DatabaseConnectionOpts):
-    container = DockerContainer(name, SQL_SERVER_CONTAINER_IMAGE, SQL_SERVER_CONTAINER_PORT)
+    container = DockerContainer(name, Image(SQL_SERVER_IMAGE_NAME, SQL_SERVER_IMAGE_PORT))
     container.bind(connection_opts.port)
     super().__init__(container, connection_opts)
 

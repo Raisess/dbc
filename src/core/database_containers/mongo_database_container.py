@@ -1,12 +1,12 @@
-from core.containers.docker_container import DockerContainer
+from core.containers.docker_container import DockerContainer, Image
 from core.database_containers.abs_database_container import AbstractDatabaseContainer, DatabaseConnectionOpts
 
-MONGO_CONTAINER_IMAGE = "mongo"
-MONGO_CONTAINER_PORT = 27017
+MONGO_IMAGE_NAME = "mongo"
+MONGO_IMAGE_PORT = 27017
 
 class MongoDatabaseContainer(AbstractDatabaseContainer):
   def __init__(self, name: str, connection_opts: DatabaseConnectionOpts):
-    container = DockerContainer(name, MONGO_CONTAINER_IMAGE, MONGO_CONTAINER_PORT)
+    container = DockerContainer(name, Image(MONGO_IMAGE_NAME, MONGO_IMAGE_PORT))
     container.bind(connection_opts.port)
     super().__init__(container, connection_opts)
 

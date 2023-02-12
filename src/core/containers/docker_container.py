@@ -1,10 +1,10 @@
 import os
 
-from core.containers.abs_container import AbstractContainer
+from core.containers.abs_container import AbstractContainer, Image
 
 class DockerContainer(AbstractContainer):
-  def __init__(self, name: str, image: str, instace_port: int):
-    super().__init__(name, image, instace_port)
+  def __init__(self, name: str, image: Image):
+    super().__init__(name, image)
 
   def create(self, env: list[str]) -> None:
     credentials = " ".join(["-e " + credential.strip() for credential in env])

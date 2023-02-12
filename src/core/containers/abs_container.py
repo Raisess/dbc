@@ -1,18 +1,26 @@
-from common.exceptions import ContainerParamNotProvidedException
+from common.exceptions import ContainerParamNotProvidedException, ImageParamNotProvidedException
+
+class Image:
+  def __init__(self, name: str, port: int, version: str = None):
+    if not name:
+      raise ImageParamNotProvidedException("name")
+    if not port:
+      raise ImageParamNotProvidedException("port")
+
+    self.name = name
+    self.port = port
+    if version:
+      self.name = f"{name}:{version}"
+
 
 class AbstractContainer:
-  def __init__(self, name: str, image: str, image_port: int):
+  def __init__(self, name: str, image: Image):
     if not name:
       raise ContainerParamNotProvidedException("name")
-    if not image:
-      raise ContainerParamNotProvidedException("image")
-    if not image_port:
-      raise ContainerParamNotProvidedException("image_port")
 
     self.__name = name
-    self.__port = image_port
+    self.__port = None
     self.__image = image
-    self.__image_port = image_port
 
   def bind(self, port: int) -> None:
     self.__port = port
@@ -21,13 +29,16 @@ class AbstractContainer:
     return self.__name
 
   def get_port(self) -> int:
+    if not self.__port:
+      raise Exception(f"Port not binded for {self.__name} container")
+
     return self.__port
 
   def get_image(self) -> str:
-    return self.__image
+    return self.__image.name
 
   def get_image_port(self) -> int:
-    return self.__image_port
+    return self.__image.port
 
   def create(self, env: list[str]) -> None:
     raise NotImplemented()

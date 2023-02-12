@@ -1,6 +1,6 @@
 from yacli import Command
 
-from core.containers.docker_container import DockerContainer
+from core.containers.docker_container import DockerContainer, Image
 from factories.database_container_factory import DatabaseContainerFactory
 
 class DestroyDatabaseContainerCommand(Command):
@@ -13,5 +13,5 @@ class DestroyDatabaseContainerCommand(Command):
 
   def handle(self, args: list[str]) -> None:
     container_name = args[0]
-    container = DockerContainer(container_name, "NULL", 1)
+    container = DockerContainer(container_name, Image("NULL", 1))
     container.destroy()
