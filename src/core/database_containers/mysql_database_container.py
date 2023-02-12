@@ -7,7 +7,6 @@ MYSQL_IMAGE_PORT = 3306
 class MySqlDatabaseContainer(AbstractDatabaseContainer):
   def __init__(self, name: str, connection_opts: DatabaseConnectionOpts):
     container = DockerContainer(name, Image(MYSQL_IMAGE_NAME, MYSQL_IMAGE_PORT))
-    container.bind(connection_opts.port)
     super().__init__(container, connection_opts)
 
   def _connect_command(self, connection_opts: DatabaseConnectionOpts) -> str:

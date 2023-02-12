@@ -7,7 +7,6 @@ REDIS_IMAGE_PORT = 6379
 class RedisDatabaseContainer(AbstractDatabaseContainer):
   def __init__(self, name: str, connection_opts: DatabaseConnectionOpts):
     container = DockerContainer(name, Image(REDIS_IMAGE_NAME, REDIS_IMAGE_PORT))
-    container.bind(connection_opts.port)
     super().__init__(container, connection_opts)
 
   def _connect_command(self, opts: DatabaseConnectionOpts) -> str:

@@ -34,6 +34,7 @@ class AbstractDatabaseContainer:
   def __init__(self, container: AbstractContainer, connection_opts: DatabaseConnectionOpts):
     self.__container = container
     self.__connection_opts = connection_opts
+    self.__container.bind(self.__connection_opts.port)
 
   def create(self) -> None:
     self.__container.create(self._enviroment(self.__connection_opts))
