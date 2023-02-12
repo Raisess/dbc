@@ -8,12 +8,13 @@ Setup development database enviroments with a easy to use database container man
 - [x] PostgreSQL: `postgres`
 - [x] MongoDB: `mongo`
 - [x] Microsoft SQLServer: `mssql`
+- [x] Redis: `redis`
 
 ## Dependencies
 
 - [Python 3.10.x >=](https://www.python.org/)
 - [Docker](https://www.docker.com/)
-- [yacli](https://github.com/Raisess/yacli)
+- [yacli](https://github.com/Raisess/yacli) (auto downloaded by the `install.py` script)
 
 ## Setup
 
@@ -30,6 +31,8 @@ $ dbc help
 
 #### `create`:
 
+Create a new container and download a new database image if don't have one.
+
 ```shell
 $ DB_NAME=database DB_HOST=localhost DB_PORT=3306 DB_USER=root DB_PASS=root dbc create `database-type` `container-name`
 ```
@@ -38,22 +41,25 @@ $ DB_NAME=database DB_HOST=localhost DB_PORT=3306 DB_USER=root DB_PASS=root dbc 
 
 #### `connect`:
 
+Enter into the container using a client software, e.g.: `psql`.
+
 ```shell
 $ DB_NAME=database DB_HOST=localhost DB_PORT=3306 DB_USER=root DB_PASS=root dbc connect `database-type` `container-name`
 ```
 
 - @NOTE: needs database env vars.
-- @NOTE: connect command, enter a database conntainer using a client software, e.g.: `psql`.
 
 #### `enter`:
+
+Enter into the container using `bash`.
 
 ```shell
 $ dbc enter `container-name`
 ```
 
-- @NOTE: enter into the container using `bash`.
-
 #### `destroy`:
+
+Delete the container and keeps the database image.
 
 ```shell
 $ dbc destroy `container-name`
