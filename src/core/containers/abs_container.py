@@ -40,14 +40,19 @@ class AbstractContainer:
   def get_image_port(self) -> int:
     return self.__image.port
 
+  # Download the image
+  # Start the container with the specified env
   def create(self, env: list[str]) -> None:
     raise NotImplemented()
 
+  # Execute a command inside the container
   def execute(self, command: str) -> None:
     raise NotImplemented()
 
   def bash(self) -> None:
-    raise NotImplemented()
+    self.execute("bash")
 
+  # Stop the container
+  # Delete the container
   def destroy(self) -> None:
     raise NotImplemented()
