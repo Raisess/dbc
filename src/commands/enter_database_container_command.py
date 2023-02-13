@@ -14,4 +14,4 @@ class EnterDatabaseContainerCommand(Command):
   def handle(self, args: list[str]) -> None:
     container_name = args[0]
     container = DockerContainer(container_name, Image("NULL", 1))
-    container.bash()
+    container.execute("bash")

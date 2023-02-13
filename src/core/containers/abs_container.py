@@ -49,9 +49,6 @@ class AbstractContainer:
   def execute(self, command: str) -> None:
     raise NotImplemented()
 
-  def bash(self) -> None:
-    self.execute("bash")
-
   # Stop the container
   # Delete the container
   def destroy(self) -> None:
