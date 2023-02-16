@@ -59,7 +59,7 @@ $ dbc enter `container-name`
 
 #### `destroy`:
 
-Delete the container and keeps the database image.
+Delete the container and the volume, but keeps the database image.
 
 ```shell
 $ dbc destroy `container-name`

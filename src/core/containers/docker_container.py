@@ -1,4 +1,6 @@
+import json
 import os
+import subprocess
 
 from core.containers.abs_container import AbstractContainer, Image
 
@@ -14,7 +16,21 @@ class DockerContainer(AbstractContainer):
   def execute(self, command: str) -> None:
     os.system(f"docker exec -it {self.get_name()} {command}")
 
-  # @TODO: delete the container volume
   def destroy(self) -> None:
+    volume = self.__get_volume_name()
+    if not volume:
+      raise Exception("Volume not found for this container")
+
     os.system(f"docker stop {self.get_name()}")
     os.system(f"docker rm {self.get_name()}")
+    os.system(f"docker volume rm {volume}")
+
+  def dump(self) -> dict:
+    stdout = subprocess.getoutput(f"docker container inspect {self.get_name()}")
+    return json.loads(stdout)[0]
+
+  def __get_volume_name(self) -> str | None:
+    mounts: list[dict] | None = self.dump().get("Mounts")
+    if not mounts:
+      return None
+    return mounts[0].get("Name")
