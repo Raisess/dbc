@@ -64,3 +64,18 @@ Delete the container and the volume, but keeps the database image.
 ```shell
 $ dbc destroy `container-name`
 ```
+
+### Container managers
+
+There are some container managers available at this time:
+
+- [x] Docker
+- [x] Podman
+
+By default `dbc` will use `docker`, to use another container set the `CONTAINER` environment variable.
+
+E.g.:
+
+```shell
+$ CONTAINER=podman dbc enter `container-name`
+```
