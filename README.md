@@ -10,6 +10,11 @@ Setup development database enviroments with a easy to use database container man
 - [x] Microsoft SQLServer: `mssql`
 - [x] Redis: `redis`
 
+## Supported container managers
+
+- [x] Docker: `docker`
+- [x] Podman: `podman`
+
 ## Dependencies
 
 - [Python 3.10.x >=](https://www.python.org/)
@@ -37,7 +42,7 @@ Create a new container and download a new database image if don't have one.
 $ dbc create `database-type` `container-name`
 ```
 
-- NOTE: You can use environment variables to set things like password, check how [here](#enviroment-variables).
+- NOTE: You can use environment variables to set things like password, check how [here](#environment-variables).
 
 #### `connect`:
 
@@ -65,12 +70,7 @@ Delete the container and the volume, but keeps the database image.
 $ dbc destroy `container-name`
 ```
 
-### Container managers
-
-There are some container managers available at this time:
-
-- [x] Docker
-- [x] Podman
+## Container managers
 
 By default `dbc` will use `docker`, to use another container set the `CONTAINER` environment variable.
 
@@ -80,7 +80,7 @@ E.g.:
 $ CONTAINER=podman dbc enter `container-name`
 ```
 
-### Enviroment variables
+### Environment variables
 
 **CONTAINER**: Specifies the container manager will want to use.
 
