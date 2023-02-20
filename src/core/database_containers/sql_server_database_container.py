@@ -1,5 +1,6 @@
-from core.containers.docker_container import DockerContainer, Image
+from core.containers.abs_container import Image
 from core.database_containers.abs_database_container import AbstractDatabaseContainer, DatabaseConnectionOpts
+from factories.container_factory import ContainerFactory
 
 class MsSqlImage(Image):
   def __init__(self):
@@ -8,7 +9,7 @@ class MsSqlImage(Image):
 
 class SqlServerDatabaseContainer(AbstractDatabaseContainer):
   def __init__(self, name: str, connection_opts: DatabaseConnectionOpts):
-    super().__init__(DockerContainer(name, MsSqlImage()), connection_opts)
+    super().__init__(ContainerFactory.InitFromEnv(name, MsSqlImage()), connection_opts)
 
   def _connect_command(self, connection_opts: DatabaseConnectionOpts) -> str:
     return f"/opt/mssql-tools/bin/sqlcmd -S {connection_opts.host} -U {connection_opts.user} -P {connection_opts.password}"

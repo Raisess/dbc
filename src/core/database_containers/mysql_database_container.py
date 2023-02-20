@@ -1,5 +1,6 @@
-from core.containers.docker_container import DockerContainer, Image
+from core.containers.abs_container import Image
 from core.database_containers.abs_database_container import AbstractDatabaseContainer, DatabaseConnectionOpts
+from factories.container_factory import ContainerFactory
 
 class MySqlImage(Image):
   def __init__(self):
@@ -8,7 +9,7 @@ class MySqlImage(Image):
 
 class MySqlDatabaseContainer(AbstractDatabaseContainer):
   def __init__(self, name: str, connection_opts: DatabaseConnectionOpts):
-    super().__init__(DockerContainer(name, MySqlImage()), connection_opts)
+    super().__init__(ContainerFactory.InitFromEnv(name, MySqlImage()), connection_opts)
 
   def _connect_command(self, connection_opts: DatabaseConnectionOpts) -> str:
     return f"mysql --user={connection_opts.user} --database={connection_opts.database} --password={connection_opts.password}"
