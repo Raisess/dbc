@@ -56,4 +56,4 @@ class AbstractContainer:
 
   # Dump the container info in JSON format
   def dump(self) -> dict:
-    raise Exception
+    raise NotImplemented()
