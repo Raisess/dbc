@@ -10,8 +10,7 @@ class DockerContainer(AbstractContainer):
 
   def create(self, env: list[str]) -> None:
     os.system(f"docker pull {self.get_image()}")
-    credentials = " ".join(["-e " + credential.strip() for credential in env])
-    os.system(f"docker run --name {self.get_name()} {credentials} --detach -p {self.get_port()}:{self.get_image_port()} -d {self.get_image()}")
+    os.system(f"docker run --name {self.get_name()} {self._parse_env(env)} --detach -p {self.get_port()}:{self.get_image_port()} -d {self.get_image()}")
 
   def execute(self, command: str) -> None:
     os.system(f"docker exec -it {self.get_name()} {command}")
