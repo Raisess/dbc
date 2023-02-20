@@ -2,7 +2,6 @@ from yacli import Command
 
 from core.containers.abs_container import Image
 from factories.container_factory import ContainerFactory
-from factories.database_container_factory import DatabaseContainerFactory
 
 class DestroyDatabaseContainerCommand(Command):
   def __init__(self):

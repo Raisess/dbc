@@ -34,20 +34,20 @@ $ dbc help
 Create a new container and download a new database image if don't have one.
 
 ```shell
-$ DB_NAME=database DB_HOST=localhost DB_PORT=3306 DB_USER=root DB_PASS=root dbc create `database-type` `container-name`
+$ dbc create `database-type` `container-name`
 ```
 
-- @NOTE: needs database env vars.
+- NOTE: You can use environment variables to set things like password, check how [here](#enviroment-variables).
 
 #### `connect`:
 
 Enter into the container using a client software, e.g.: `psql`.
 
 ```shell
-$ DB_NAME=database DB_HOST=localhost DB_PORT=3306 DB_USER=root DB_PASS=root dbc connect `database-type` `container-name`
+$ dbc connect `database-type` `container-name`
 ```
 
-- @NOTE: needs database env vars.
+- NOTE: You don't need to specify the environment variables to connect using the `connect` command.
 
 #### `enter`:
 
@@ -79,3 +79,26 @@ E.g.:
 ```shell
 $ CONTAINER=podman dbc enter `container-name`
 ```
+
+### Enviroment variables
+
+**CONTAINER**: Specifies the container manager will want to use.
+
+- Default: `docker`
+
+**DB_NAME**: The database name.
+
+- Default: `mydatabase`
+
+**DB_PORT**: The physical port to access the database trough the container.
+
+- Default: `1234`
+- NOTE: Inside the container, the databases will always use they default port, like: `5432` for `postgres`.
+
+**DB_USER**: The username to access the database.
+
+- Default: `root`
+
+**DB_PASS**: The database password.
+
+- Default: `mysecretpassword`

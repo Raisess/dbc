@@ -8,8 +8,8 @@ class MongoImage(Image):
 
 
 class MongoDatabaseContainer(AbstractDatabaseContainer):
-  def __init__(self, name: str, connection_opts: DatabaseConnectionOpts):
-    super().__init__(ContainerFactory.InitFromEnv(name, MongoImage()), connection_opts)
+  def __init__(self, name: str):
+    super().__init__(ContainerFactory.InitFromEnv(name, MongoImage()))
 
   def _connect_command(self, connection_opts: DatabaseConnectionOpts) -> str:
     return f"mongosh --host {connection_opts.host} --username {connection_opts.user} --password {connection_opts.password}"

@@ -8,8 +8,8 @@ class MySqlImage(Image):
 
 
 class MySqlDatabaseContainer(AbstractDatabaseContainer):
-  def __init__(self, name: str, connection_opts: DatabaseConnectionOpts):
-    super().__init__(ContainerFactory.InitFromEnv(name, MySqlImage()), connection_opts)
+  def __init__(self, name: str):
+    super().__init__(ContainerFactory.InitFromEnv(name, MySqlImage()))
 
   def _connect_command(self, connection_opts: DatabaseConnectionOpts) -> str:
     return f"mysql --user={connection_opts.user} --database={connection_opts.database} --password={connection_opts.password}"

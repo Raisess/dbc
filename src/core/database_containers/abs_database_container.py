@@ -6,32 +6,23 @@ from core.containers.abs_container import AbstractContainer
 class DatabaseConnectionOpts:
   def __init__(
     self,
-    database: str = os.getenv("DB_NAME"),
-    host: str = os.getenv("DB_HOST"),
-    user: str = os.getenv("DB_USER"),
-    password: str = os.getenv("DB_PASS"),
-    port: str | int = os.getenv("DB_PORT")
+    database: str = os.getenv("DB_NAME") or "mydatabase",
+    port: str | int = os.getenv("DB_PORT") or 1234,
+    user: str = os.getenv("DB_USER") or "root",
+    password: str = os.getenv("DB_PASS") or "mysecretpassword"
   ):
-    if not database:
-      raise DatabaseConnectionParamNotProvidedException("DB_NAME")
-    if not host:
-      raise DatabaseConnectionParamNotProvidedException("DB_HOST")
-    if not port:
-      raise DatabaseConnectionParamNotProvidedException("DB_PORT")
-    if not user:
-      raise DatabaseConnectionParamNotProvidedException("DB_USER")
-    if not password:
-      raise DatabaseConnectionParamNotProvidedException("DB_PASS")
-
     self.database = database
-    self.host = host
+    self.port = int(port)
     self.user = user
     self.password = password
-    self.port = int(port)
 
 
 class AbstractDatabaseContainer:
-  def __init__(self, container: AbstractContainer, connection_opts: DatabaseConnectionOpts):
+  def __init__(
+    self,
+    container: AbstractContainer,
+    connection_opts: DatabaseConnectionOpts = DatabaseConnectionOpts()
+  ):
     self.__container = container
     self.__connection_opts = connection_opts
     self.__container.bind(self.__connection_opts.port)

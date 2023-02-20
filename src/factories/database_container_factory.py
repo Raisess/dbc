@@ -1,4 +1,4 @@
-from core.database_containers.abs_database_container import AbstractDatabaseContainer, DatabaseConnectionOpts
+from core.database_containers.abs_database_container import AbstractDatabaseContainer
 from core.database_containers.mongo_database_container import MongoDatabaseContainer
 from core.database_containers.mysql_database_container import MySqlDatabaseContainer
 from core.database_containers.postgres_database_container import PostgresDatabaseContainer
@@ -16,19 +16,18 @@ class DatabaseContinerType:
 class DatabaseContainerFactory:
   @staticmethod
   def Init(
-    container_name: str,
     database_type: DatabaseContinerType,
-    database_connection_opts: DatabaseConnectionOpts
+    container_name: str,
   ) -> AbstractDatabaseContainer:
     if database_type == DatabaseContinerType.Postgres:
-      return PostgresDatabaseContainer(container_name, database_connection_opts)
+      return PostgresDatabaseContainer(container_name)
     if database_type == DatabaseContinerType.Mongo:
-      return MongoDatabaseContainer(container_name, database_connection_opts)
+      return MongoDatabaseContainer(container_name)
     if database_type == DatabaseContinerType.MsSql:
-      return SqlServerDatabaseContainer(container_name, database_connection_opts)
+      return SqlServerDatabaseContainer(container_name)
     if database_type == DatabaseContinerType.MySql:
-      return MySqlDatabaseContainer(container_name, database_connection_opts)
+      return MySqlDatabaseContainer(container_name)
     if database_type == DatabaseContinerType.Redis:
-      return RedisDatabaseContainer(container_name, database_connection_opts)
+      return RedisDatabaseContainer(container_name)
     else:
       raise Exception("Invalid database container type")

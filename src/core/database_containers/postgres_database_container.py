@@ -8,8 +8,8 @@ class PostgresImage(Image):
 
 
 class PostgresDatabaseContainer(AbstractDatabaseContainer):
-  def __init__(self, name: str, connection_opts: DatabaseConnectionOpts):
-    super().__init__(ContainerFactory.InitFromEnv(name, PostgresImage()), connection_opts)
+  def __init__(self, name: str):
+    super().__init__(ContainerFactory.InitFromEnv(name, PostgresImage()))
 
   def _connect_command(self, connection_opts: DatabaseConnectionOpts) -> str:
     return f"psql -h {connection_opts.host} -U {connection_opts.user} {connection_opts.database}"

@@ -8,8 +8,8 @@ class RedisImage(Image):
 
 
 class RedisDatabaseContainer(AbstractDatabaseContainer):
-  def __init__(self, name: str, connection_opts: DatabaseConnectionOpts):
-    super().__init__(ContainerFactory.InitFromEnv(name, RedisImage()), connection_opts)
+  def __init__(self, name: str):
+    super().__init__(ContainerFactory.InitFromEnv(name, RedisImage()))
 
   def _connect_command(self, _: DatabaseConnectionOpts) -> str:
     return "redis-cli"
