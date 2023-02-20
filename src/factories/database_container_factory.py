@@ -21,13 +21,13 @@ class DatabaseContainerFactory:
   ) -> AbstractDatabaseContainer:
     if database_type == DatabaseContinerType.Postgres:
       return PostgresDatabaseContainer(container_name)
-    if database_type == DatabaseContinerType.Mongo:
+    elif database_type == DatabaseContinerType.Mongo:
       return MongoDatabaseContainer(container_name)
-    if database_type == DatabaseContinerType.MsSql:
+    elif database_type == DatabaseContinerType.MsSql:
       return SqlServerDatabaseContainer(container_name)
-    if database_type == DatabaseContinerType.MySql:
+    elif database_type == DatabaseContinerType.MySql:
       return MySqlDatabaseContainer(container_name)
-    if database_type == DatabaseContinerType.Redis:
+    elif database_type == DatabaseContinerType.Redis:
       return RedisDatabaseContainer(container_name)
     else:
       raise Exception("Invalid database container type")
