@@ -25,12 +25,12 @@ class PodmanContainer(AbstractContainer):
     PodmanAPI.Eval(self.get_name(), command)
 
   def destroy(self) -> None:
-    volume = self.__get_volume_name()
-    if not volume:
-      raise Exception("Volume not found for this container")
-
     PodmanAPI.Stop(self.get_name())
-    PodmanAPI.Erase(self.get_name(), volume)
+    PodmanAPI.Delete(self.get_name())
+
+    volume = self.__get_volume_name()
+    if volume:
+      PodmanAPI.DeleteVolume(volume)
 
   def __parse_env(self, env: list[str]) -> str:
     return " ".join(["-e " + credential.strip() for credential in env])

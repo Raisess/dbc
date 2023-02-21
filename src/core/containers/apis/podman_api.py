@@ -23,8 +23,11 @@ class PodmanAPI:
     subprocess.getoutput(f"podman exec -it {container} {command}")
 
   @staticmethod
-  def Erase(container: str, volume: str) -> None:
+  def Delete(container: str) -> None:
     subprocess.getoutput(f"podman rm {container}")
+
+  @staticmethod
+  def DeleteVolume(volume: str) -> None:
     subprocess.getoutput(f"podman volume rm {volume}")
 
   @staticmethod
