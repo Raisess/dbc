@@ -10,7 +10,7 @@ class DockerContainer(AbstractContainer):
 
   def create(self, env: list[str]) -> None:
     os.system(f"docker pull {self.get_image()}")
-    os.system(f"docker run --name {self.get_name()} {self._parse_env(env)} --detach -p {self.get_port()}:{self.get_image_port()} -d {self.get_image()}")
+    os.system(f"docker run --name {self.get_name()} {self.__parse_env(env)} --detach -p {self.get_port()}:{self.get_image_port()} -d {self.get_image()}")
 
   def execute(self, command: str) -> None:
     os.system(f"docker exec -it {self.get_name()} {command}")
@@ -27,6 +27,9 @@ class DockerContainer(AbstractContainer):
   def dump(self) -> dict:
     stdout = subprocess.getoutput(f"docker container inspect {self.get_name()}")
     return json.loads(stdout)[0]
+
+  def __parse_env(self, env: list[str]) -> str:
+    return " ".join(["-e " + credential.strip() for credential in env])
 
   def __get_volume_name(self) -> str | None:
     mounts: list[dict] | None = self.dump().get("Mounts")

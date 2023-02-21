@@ -10,7 +10,7 @@ class PodmanContainer(AbstractContainer):
 
   def create(self, env: list[str]) -> None:
     os.system(f"podman pull docker.io/library/{self.get_image()}")
-    os.system(f"podman run --name {self.get_name()} {self._parse_env(env)} --detach --publish {self.get_port()}:{self.get_image_port()}/tcp docker.io/library/{self.get_image()}")
+    os.system(f"podman run --name {self.get_name()} {self.__parse_env(env)} --detach --publish {self.get_port()}:{self.get_image_port()}/tcp docker.io/library/{self.get_image()}")
 
   def execute(self, command: str) -> None:
     os.system(f"podman exec -it {self.get_name()} {command}")
@@ -27,6 +27,9 @@ class PodmanContainer(AbstractContainer):
   def dump(self) -> dict:
     stdout = subprocess.getoutput(f"podman container inspect {self.get_name()}")
     return json.loads(stdout)[0]
+
+  def __parse_env(self, env: list[str]) -> str:
+    return " ".join(["-e " + credential.strip() for credential in env])
 
   def __get_volume_name(self) -> str | None:
     mounts: list[dict] | None = self.dump().get("Mounts")

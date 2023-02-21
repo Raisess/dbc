@@ -40,9 +40,6 @@ class AbstractContainer:
   def get_image_port(self) -> int:
     return self.__image.port
 
-  def _parse_env(self, env: list[str]) -> str:
-    return " ".join(["-e " + credential.strip() for credential in env])
-
   # Download the image
   # Start the container with the specified env
   def create(self, env: list[str]) -> None:
