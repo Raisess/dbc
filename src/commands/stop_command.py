@@ -16,3 +16,4 @@ class StopCommand(Command):
     container_name = args[0]
     container = ContainerFactory.InitFromEnv(container_name, Image("NULL", 1))
     container.stop()
+    print(f"Successfully stopped container: {container_name}")

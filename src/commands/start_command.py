@@ -16,3 +16,4 @@ class StartCommand(Command):
     container_name = args[0]
     container = ContainerFactory.InitFromEnv(container_name, Image("NULL", 1))
     container.start()
+    print(f"Successfully started container: {container_name}")

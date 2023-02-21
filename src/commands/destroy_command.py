@@ -15,3 +15,4 @@ class DestroyCommand(Command):
     container_name = args[0]
     container = ContainerFactory.InitFromEnv(container_name, Image("NULL", 1))
     container.destroy()
+    print(f"Successfully destroyed container: {container_name}")
