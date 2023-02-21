@@ -1,13 +1,12 @@
 from yacli import Command
 
-from core.database_containers.abs_database_container import DatabaseConnectionOpts
 from factories.database_container_factory import DatabaseContainerFactory
 
-class ConnectDatabaseContainerCommand(Command):
+class CreateCommand(Command):
   def __init__(self):
     super().__init__(
-      command="connect",
-      description="Connect into a database container. E.g.: dbc connect mysql container-name.",
+      command="create",
+      description="Create a new database container. E.g.: dbc create mysql container-name.",
       args_len=2
     )
 
@@ -15,4 +14,4 @@ class ConnectDatabaseContainerCommand(Command):
     database_type = args[0]
     container_name = args[1]
     database_container = DatabaseContainerFactory.Init(database_type, container_name)
-    database_container.connect()
+    database_container.create()
