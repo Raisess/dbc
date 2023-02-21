@@ -1,5 +1,4 @@
 import json
-import os
 import subprocess
 
 from core.containers.abs_container import AbstractContainer, Image
@@ -22,27 +21,25 @@ class DockerContainer(AbstractContainer):
     self.__run(f"exec -it {self.get_name()} {command}")
 
   def destroy(self) -> None:
-    self.stop()
-    self.__run(f"rm {self.get_name()}")
-
     volume = self.__get_volume_name()
     if not volume:
       raise Exception("Volume not found for this container")
 
+    self.stop()
+    self.__run(f"rm {self.get_name()}")
     self.__run(f"volume rm {volume}")
 
-  def dump(self) -> dict:
-    stdout = subprocess.getoutput(f"docker container inspect {self.get_name()}")
-    return json.loads(stdout)[0]
-
-  def __run(self, command: str) -> None:
-    os.system(f"docker {command}")
+  def __run(self, command: str) -> str:
+    return subprocess.getoutput(f"docker {command}")
 
   def __parse_env(self, env: list[str]) -> str:
     return " ".join(["-e " + credential.strip() for credential in env])
 
   def __get_volume_name(self) -> str | None:
-    mounts: list[dict] | None = self.dump().get("Mounts")
+    stdout = self.__run(f"container inspect {self.get_name()}")
+    dump = json.loads(stdout)[0]
+
+    mounts: list[dict] | None = dump.get("Mounts")
     if not mounts:
       return None
     return mounts[0].get("Name")

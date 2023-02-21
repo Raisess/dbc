@@ -62,7 +62,3 @@ class AbstractContainer:
   # Delete the volume
   def destroy(self) -> None:
     raise NotImplemented()
-
-  # Dump the container info in JSON format
-  def dump(self) -> dict:
-    raise NotImplemented()
