@@ -9,24 +9,34 @@ class DockerContainer(AbstractContainer):
     super().__init__(name, image)
 
   def create(self, env: list[str]) -> None:
-    os.system(f"docker pull {self.get_image()}")
-    os.system(f"docker run --name {self.get_name()} {self.__parse_env(env)} --detach -p {self.get_port()}:{self.get_image_port()} -d {self.get_image()}")
+    self.__run(f"pull {self.get_image()}")
+    self.__run(f"run --name {self.get_name()} {self.__parse_env(env)} --detach -p {self.get_port()}:{self.get_image_port()} -d {self.get_image()}")
+
+  def start(self) -> None:
+    self.__run(f"start {self.get_name()}")
+
+  def stop(self) -> None:
+    self.__run(f"stop {self.get_name()}")
 
   def execute(self, command: str) -> None:
-    os.system(f"docker exec -it {self.get_name()} {command}")
+    self.__run(f"exec -it {self.get_name()} {command}")
 
   def destroy(self) -> None:
+    self.stop()
+    self.__run(f"rm {self.get_name()}")
+
     volume = self.__get_volume_name()
     if not volume:
       raise Exception("Volume not found for this container")
 
-    os.system(f"docker stop {self.get_name()}")
-    os.system(f"docker rm {self.get_name()}")
-    os.system(f"docker volume rm {volume}")
+    self.__run(f"volume rm {volume}")
 
   def dump(self) -> dict:
     stdout = subprocess.getoutput(f"docker container inspect {self.get_name()}")
     return json.loads(stdout)[0]
+
+  def __run(self, command: str) -> None:
+    os.system(f"docker {command}")
 
   def __parse_env(self, env: list[str]) -> str:
     return " ".join(["-e " + credential.strip() for credential in env])

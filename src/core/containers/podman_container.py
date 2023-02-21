@@ -9,24 +9,34 @@ class PodmanContainer(AbstractContainer):
     super().__init__(name, image)
 
   def create(self, env: list[str]) -> None:
-    os.system(f"podman pull docker.io/library/{self.get_image()}")
-    os.system(f"podman run --name {self.get_name()} {self.__parse_env(env)} --detach --publish {self.get_port()}:{self.get_image_port()}/tcp docker.io/library/{self.get_image()}")
+    self.__run(f"pull docker.io/library/{self.get_image()}")
+    self.__run(f"run --name {self.get_name()} {self.__parse_env(env)} --detach --publish {self.get_port()}:{self.get_image_port()}/tcp docker.io/library/{self.get_image()}")
+
+  def start(self) -> None:
+    self.__run(f"start {self.get_name()}")
+
+  def stop(self) -> None:
+    self.__run(f"stop {self.get_name()}")
 
   def execute(self, command: str) -> None:
-    os.system(f"podman exec -it {self.get_name()} {command}")
+    self.__run(f"exec -it {self.get_name()} {command}")
 
   def destroy(self) -> None:
+    self.stop()
+    self.__run(f"rm {self.get_name()}")
+
     volume = self.__get_volume_name()
     if not volume:
       raise Exception("Volume not found for this container")
 
-    os.system(f"podman stop {self.get_name()}")
-    os.system(f"podman rm {self.get_name()}")
-    os.system(f"podman volume rm {volume}")
+    self.__run(f"volume rm {volume}")
 
   def dump(self) -> dict:
     stdout = subprocess.getoutput(f"podman container inspect {self.get_name()}")
     return json.loads(stdout)[0]
+
+  def __run(self, command: str) -> None:
+    os.system(f"podman {command}")
 
   def __parse_env(self, env: list[str]) -> str:
     return " ".join(["-e " + credential.strip() for credential in env])

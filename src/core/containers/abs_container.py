@@ -45,6 +45,14 @@ class AbstractContainer:
   def create(self, env: list[str]) -> None:
     raise NotImplemented()
 
+  # Start the container
+  def start(self) -> None:
+    raise NotImplemented()
+
+  # Stop the container
+  def stop(self) -> None:
+    raise NotImplemented()
+
   # Execute a command inside the container
   def execute(self, command: str) -> None:
     raise NotImplemented()
