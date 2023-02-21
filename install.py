@@ -3,8 +3,8 @@
 import os
 import site
 
-NOT_USE_SUDO = bool(os.getenv("NOT_USE_SUDO")) or False
-sudo = "" if NOT_USE_SUDO else "sudo"
+NO_SUDO = int(os.getenv("NO_SUDO") or 0)
+sudo = "" if bool(NO_SUDO) else "sudo"
 
 CLI_NAME = "dbc"
 
@@ -16,10 +16,10 @@ if __name__ == "__main__":
   print(f"Installing {CLI_NAME}...")
 
   if not os.path.isdir(f"{site.USER_SITE}/yacli"):
-    os.system("""
+    os.system(f"""
       git clone https://github.com/Raisess/yacli
       cd yacli
-      ./install.sh
+      NO_SUDO={NO_SUDO} ./install.py
       cd ..
       rm -rf yacli
     """)
