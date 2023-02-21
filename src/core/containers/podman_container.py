@@ -26,11 +26,11 @@ class PodmanContainer(AbstractContainer):
 
   def destroy(self) -> None:
     PodmanAPI.Stop(self.get_name())
-    PodmanAPI.Delete(self.get_name())
-
     volume = self.__get_volume_name()
     if volume:
       PodmanAPI.DeleteVolume(volume)
+
+    PodmanAPI.Delete(self.get_name())
 
   def __parse_env(self, env: list[str]) -> str:
     return " ".join(["-e " + credential.strip() for credential in env])
