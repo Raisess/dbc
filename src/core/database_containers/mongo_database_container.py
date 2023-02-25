@@ -12,7 +12,7 @@ class MongoDatabaseContainer(AbstractDatabaseContainer):
     super().__init__(ContainerFactory.InitFromEnv(name, MongoImage()))
 
   def _connect_command(self, connection_opts: DatabaseConnectionOpts) -> str:
-    return f"mongosh --host {connection_opts.host} --username {connection_opts.user} --password {connection_opts.password}"
+    return f"mongosh --host localhost --username {connection_opts.user} --password {connection_opts.password}"
 
   def _enviroment(self, connection_opts: DatabaseConnectionOpts) -> list[str]:
     return [

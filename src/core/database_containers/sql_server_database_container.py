@@ -12,7 +12,7 @@ class SqlServerDatabaseContainer(AbstractDatabaseContainer):
     super().__init__(ContainerFactory.InitFromEnv(name, MsSqlImage()))
 
   def _connect_command(self, connection_opts: DatabaseConnectionOpts) -> str:
-    return f"/opt/mssql-tools/bin/sqlcmd -S {connection_opts.host} -U {connection_opts.user} -P {connection_opts.password}"
+    return f"/opt/mssql-tools/bin/sqlcmd -S localhost -U {connection_opts.user} -P {connection_opts.password}"
 
   def _enviroment(self, connection_opts: DatabaseConnectionOpts) -> list[str]:
     return [
