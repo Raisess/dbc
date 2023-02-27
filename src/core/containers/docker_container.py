@@ -31,6 +31,8 @@ class DockerContainer(AbstractContainer):
     return " ".join(["-e " + credential.strip() for credential in env])
 
   def __get_volume_name(self) -> str | None:
+    import json
+
     stdout = Shell.Execute(f"docker container inspect {self.get_name()}")
     dump = json.loads(stdout)[0]
 

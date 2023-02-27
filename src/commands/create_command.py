@@ -14,5 +14,6 @@ class CreateCommand(Command):
     database_type = args[0]
     container_name = args[1]
     database_container = DatabaseContainerFactory.Init(database_type, container_name)
+    print("Preparing stuff, please wait...")
     database_container.create()
     print(f"Successfully created container: {container_name}")
