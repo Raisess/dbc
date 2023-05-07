@@ -8,8 +8,15 @@ class PodmanAPI:
     Shell.Execute(f"podman pull docker.io/library/{image}")
 
   @staticmethod
-  def Run(container: str, image: str, public_port: int, port: int, env: str = "") -> None:
-    Shell.Execute(f"podman run --name {container} {env} --detach --publish {public_port}:{port}/tcp docker.io/library/{image}")
+  def CreateNetwork(label: str) -> None:
+    Shell.Execute(f"podman network create {label}")
+
+  @staticmethod
+  def Run(container: str, image: str, public_port: int, port: int, env: str = "", net: str = None) -> None:
+    if net:
+      Shell.Execute(f"podman run --name {container} --net {net} {env} --detach --publish {public_port}:{port}/tcp docker.io/library/{image}")
+    else:
+      Shell.Execute(f"podman run --name {container} {env} --detach --publish {public_port}:{port}/tcp docker.io/library/{image}")
 
   @staticmethod
   def Start(container: str) -> None:

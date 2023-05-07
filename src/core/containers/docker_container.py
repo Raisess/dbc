@@ -1,5 +1,9 @@
+import os
+
 from common.helpers import Shell
 from core.containers.abs_container import AbstractContainer, Image
+
+NET = os.getenv("NET")
 
 class DockerContainer(AbstractContainer):
   def __init__(self, name: str, image: Image):
@@ -7,7 +11,11 @@ class DockerContainer(AbstractContainer):
 
   def create(self, env: list[str]) -> None:
     Shell.Execute(f"docker pull {self.get_image()}")
-    Shell.Execute(f"docker run --name {self.get_name()} {self.__parse_env(env)} --detach -p {self.get_port()}:{self.get_image_port()} -d {self.get_image()}")
+    if NET:
+      Shell.Execute(f"docker network create {NET}")
+      Shell.Execute(f"docker run --name {self.get_name()} --net {NET} {self.__parse_env(env)} --detach -p {self.get_port()}:{self.get_image_port()} -d {self.get_image()}")
+    else:
+      Shell.Execute(f"docker run --name {self.get_name()} {self.__parse_env(env)} --detach -p {self.get_port()}:{self.get_image_port()} -d {self.get_image()}")
 
   def start(self) -> None:
     Shell.Execute(f"docker start {self.get_name()}")

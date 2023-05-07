@@ -1,5 +1,9 @@
+import os
+
 from core.containers.apis.podman_api import PodmanAPI
 from core.containers.abs_container import AbstractContainer, Image
+
+NET = os.getenv("NET")
 
 class PodmanContainer(AbstractContainer):
   def __init__(self, name: str, image: Image):
@@ -7,12 +11,16 @@ class PodmanContainer(AbstractContainer):
 
   def create(self, env: list[str]) -> None:
     PodmanAPI.Pull(self.get_image())
+    if NET:
+      PodmanAPI.CreateNetwork(NET)
+
     PodmanAPI.Run(
       container=self.get_name(),
       image=self.get_image(),
       public_port=self.get_port(),
       port=self.get_image_port(),
-      env=self.__parse_env(env)
+      env=self.__parse_env(env),
+      net=NET
     )
 
   def start(self) -> None:
